@@ -181,6 +181,12 @@ button {
   padding: 24px;
 }
 
+.widget-card {
+  background:
+    radial-gradient(circle at top left, rgba(180, 83, 42, 0.08), transparent 22%),
+    rgba(255, 255, 255, 0.78);
+}
+
 .section-heading {
   display: flex;
   align-items: flex-start;
@@ -258,6 +264,47 @@ button {
   gap: 14px;
 }
 
+.widget-grid {
+  gap: 18px;
+  margin-top: 4px;
+}
+
+.widget-form,
+.widget-result {
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(36, 28, 22, 0.1);
+}
+
+.widget-header h3,
+.widget-result h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.widget-header p {
+  margin: 0 0 18px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.widget-summary {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.widget-summary > div {
+  padding-top: 12px;
+  border-top: 1px solid rgba(36, 28, 22, 0.12);
+}
+
+.widget-summary strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
 label {
   display: grid;
   gap: 8px;
@@ -295,6 +342,10 @@ button {
   margin-top: 18px;
 }
 
+.result-box p:last-child {
+  margin-bottom: 0;
+}
+
 .micro-status {
   margin-top: 12px;
   font-size: 0.92rem;
@@ -318,5 +369,10 @@ button {
 
   .hero-copy h1 {
     max-width: none;
+  }
+
+  .widget-form,
+  .widget-result {
+    padding: 18px;
   }
 }

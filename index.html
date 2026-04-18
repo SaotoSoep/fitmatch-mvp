@@ -5,143 +5,157 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FitMatch - Sizing Intelligence Layer</title>
   <meta name="description" content="FitMatch helps translate and compare sizes across brands with a lightweight sizing intelligence layer." />
-  <link rel="stylesheet" href="./css/styles.css?v=20260418-2" />
-  <script src="./js/data.js?v=20260418-2" defer></script>
-  <script src="./js/normalization.js?v=20260418-2" defer></script>
-  <script src="./js/translator.js?v=20260418-2" defer></script>
-  <script src="./js/app.js?v=20260418-2" defer></script>
+  <link rel="stylesheet" href="./css/styles.css?v=20260418-3" />
+  <script src="./js/data.js?v=20260418-3" defer></script>
+  <script src="./js/normalization.js?v=20260418-3" defer></script>
+  <script src="./js/translator.js?v=20260418-3" defer></script>
+  <script src="./js/app.js?v=20260418-3" defer></script>
 </head>
 <body>
   <main class="app-shell">
     <section class="hero card">
       <div class="hero-copy">
-        <div class="eyebrow">Sizing intelligence layer</div>
-        <h1>Understand how sizes differ across brands.</h1>
+        <div class="eyebrow">FitMatch widget</div>
+        <h1>Translate your size from one brand to another.</h1>
         <p class="lead">
-          FitMatch is shifting from a body-measurement quiz to a structured sizing dataset and
-          translation layer. The goal is simple: compare brands, normalize size charts, and make
-          sizing data useful before we ever ask a customer for body input.
+          This is the product surface we want to test: a lightweight sizing widget that turns a
+          known size at one brand into a recommendation for another brand. The surrounding
+          intelligence layer sits behind it.
         </p>
 
         <div class="hero-actions">
-          <a href="#compare" class="primary-link">Try size translation</a>
-          <a href="#dataset" class="secondary-link">Inspect dataset</a>
+          <a href="#widget" class="primary-link">Try the widget</a>
+          <a href="#system" class="secondary-link">See the sizing layer</a>
         </div>
       </div>
 
       <aside class="hero-panel">
-        <h2>Product direction</h2>
+        <h2>Core use case</h2>
         <ul>
-          <li>Brand fit comparison tool</li>
-          <li>Size translation engine</li>
-          <li>Normalization layer for public size charts</li>
-          <li>Future feedback loop from users</li>
+          <li>User knows their size in one brand</li>
+          <li>Widget recommends the closest size in another brand</li>
+          <li>Retailer sees a clear brand-to-brand translation flow</li>
+          <li>Feedback can improve the dataset later</li>
         </ul>
         <p class="note">
-          Body-based recommendation can come later, but it should sit on top of this layer, not
-          replace it.
+          Body-based recommendation can come later, but it should sit on top of this layer, not replace it.
         </p>
       </aside>
     </section>
 
+    <section id="widget" class="card section-card widget-card">
+      <div class="section-heading">
+        <div>
+          <h2>Size translation widget</h2>
+          <p>This is the main frontend we want to validate: fast input, simple translation, instant value.</p>
+        </div>
+        <span class="badge">Primary surface</span>
+      </div>
+
+      <div class="grid two-up widget-grid">
+        <article class="widget-form card">
+          <div class="widget-header">
+            <h3>Translate size</h3>
+            <p>Choose the brand and size you already know, then translate it to a target brand.</p>
+          </div>
+
+          <form id="compareForm" class="form-grid">
+            <label>
+              I wear this size at
+              <select id="sourceBrand"></select>
+            </label>
+
+            <label>
+              My usual size
+              <select id="sourceSize"></select>
+            </label>
+
+            <label>
+              I want to buy from
+              <select id="targetBrand"></select>
+            </label>
+
+            <label>
+              Product type
+              <select id="productType">
+                <option value="tshirt">Women's T-shirt</option>
+              </select>
+            </label>
+
+            <button type="submit">Get recommendation</button>
+          </form>
+        </article>
+
+        <article class="widget-result card">
+          <h3>Recommendation</h3>
+          <div id="translationResult" class="result-box">
+            <h3>Translation result</h3>
+            <p>Select two brands to see how the same size translates.</p>
+          </div>
+          <div class="widget-summary">
+            <div>
+              <strong>Why this is useful</strong>
+              <p>It reduces guesswork, multi-size orders, and sizing frustration for shoppers.</p>
+            </div>
+            <div>
+              <strong>What we validate</strong>
+              <p>Whether a simple brand-to-brand recommendation is useful enough to keep using.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <section class="grid two-up">
       <article class="card section-card">
-        <h2>What changed from the previous MVP</h2>
+        <h2>What the widget sits on top of</h2>
         <p>
-          The old version centered on a small questionnaire and body measurements for women's
-          T-shirts. This iteration moves the core object from the person to the sizing system.
+          The widget is the frontend. Behind it is a lightweight sizing intelligence layer that
+          stores charts, normalizes them, and translates between brands.
         </p>
         <div class="bullet-list">
-          <div><strong>Before:</strong> "What size fits this person?"</div>
-          <div><strong>Now:</strong> "How do sizes differ across brands and products?"</div>
-          <div><strong>Later:</strong> "What can user feedback teach the dataset?"</div>
+          <div><strong>Dataset:</strong> public brand size charts and product attributes</div>
+          <div><strong>Logic:</strong> normalization and translation between brands</div>
+          <div><strong>Future:</strong> user feedback to refine fit profiles</div>
         </div>
       </article>
 
       <article class="card section-card">
-        <h2>Architecture</h2>
+        <h2>Why the business cares</h2>
         <div class="architecture">
           <div>
-            <span>UI</span>
-            <p>Brand comparison, translation results, and simple dataset views.</p>
+            <span>For shoppers</span>
+            <p>Less guessing, fewer size-related surprises, and a faster path to checkout.</p>
           </div>
           <div>
-            <span>Sizing dataset</span>
-            <p>Normalized brand charts, product attributes, and fit profiles.</p>
+            <span>For retailers</span>
+            <p>Lower return pressure, fewer abandoned carts, and better conversion on sizing-sensitive products.</p>
           </div>
           <div>
-            <span>Normalization logic</span>
-            <p>Converts brand-specific sizes into a shared FitMatch format.</p>
-          </div>
-          <div>
-            <span>Translation engine</span>
-            <p>Maps one brand size into the closest size in another brand.</p>
-          </div>
-          <div>
-            <span>Feedback layer</span>
-            <p>Collects fit outcomes later to improve the dataset.</p>
+            <span>For FitMatch</span>
+            <p>A narrow, testable wedge: one clear output that can validate product demand.</p>
           </div>
         </div>
       </article>
     </section>
 
-    <section id="dataset" class="card section-card">
+    <section id="system" class="card section-card">
       <div class="section-heading">
         <div>
-          <h2>Sample sizing dataset</h2>
-          <p>Compact by design. This is enough to validate the new direction without overbuilding.</p>
+          <h2>Sizing intelligence layer</h2>
+          <p>The widget uses a small dataset, but the underlying structure is designed to scale.</p>
         </div>
         <span class="badge">Normalized format</span>
       </div>
       <div id="datasetGrid" class="brand-grid"></div>
     </section>
 
-    <section id="compare" class="grid two-up">
+    <section class="grid two-up">
       <article class="card section-card">
-        <div class="section-heading">
-          <div>
-            <h2>Brand fit comparison</h2>
-            <p>Compare how the same nominal size behaves across brands.</p>
-          </div>
-        </div>
-
-        <form id="compareForm" class="form-grid">
-          <label>
-            Source brand
-            <select id="sourceBrand"></select>
-          </label>
-
-          <label>
-            Source size
-            <select id="sourceSize"></select>
-          </label>
-
-          <label>
-            Target brand
-            <select id="targetBrand"></select>
-          </label>
-
-          <label>
-            Product type
-            <select id="productType">
-              <option value="tshirt">Women's T-shirt</option>
-            </select>
-          </label>
-
-          <button type="submit">Translate size</button>
-        </form>
-
-        <div id="translationResult" class="result-box">
-          <h3>Translation result</h3>
-          <p>Select two brands to see how the same size translates.</p>
-        </div>
-      </article>
-
-      <article class="card section-card">
-        <h2>Feedback layer preview</h2>
+        <h2>Future feedback layer</h2>
         <p>
-          This is intentionally lightweight for now. The app can later capture fit outcomes such
-          as "too small", "good fit", or "too large" to improve the sizing logic.
+          We are not depending on feedback yet, but the structure is there so the product can
+          learn from fit outcomes later.
         </p>
         <div class="feedback-box">
           <label>
@@ -159,6 +173,28 @@
           <button type="button" id="saveFeedback">Save local feedback</button>
         </div>
         <div id="feedbackStatus" class="micro-status">No feedback saved yet.</div>
+      </article>
+
+      <article class="card section-card">
+        <h2>POC scope</h2>
+        <div class="architecture">
+          <div>
+            <span>Use case</span>
+            <p>Brand-to-brand size translation for known sizes.</p>
+          </div>
+          <div>
+            <span>Input</span>
+            <p>Minimal: source brand, source size, target brand, and product type.</p>
+          </div>
+          <div>
+            <span>Output</span>
+            <p>One simple recommendation that is easy to understand and test with users.</p>
+          </div>
+          <div>
+            <span>Validation</span>
+            <p>Whether people find brand-to-brand sizing genuinely useful in a shopping flow.</p>
+          </div>
+        </div>
       </article>
     </section>
   </main>
