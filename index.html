@@ -3,576 +3,164 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FitMatch MVP - clothing size advice</title>
-  <style>
-    :root {
-      --bg: #f4efe7;
-      --bg-2: #efe6d8;
-      --panel: rgba(255, 255, 255, 0.72);
-      --text: #1f1a17;
-      --muted: #62564f;
-      --accent: #b4532a;
-      --accent-2: #0f766e;
-      --line: rgba(31, 26, 23, 0.12);
-      --shadow: 0 24px 80px rgba(73, 45, 31, 0.12);
-      --radius: 28px;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Inter, "Segoe UI", Arial, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(180, 83, 42, 0.16), transparent 28%),
-        radial-gradient(circle at top right, rgba(15, 118, 110, 0.15), transparent 24%),
-        linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
-      min-height: 100vh;
-    }
-
-    .wrap {
-      width: min(1180px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 32px 0 48px;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 24px;
-      align-items: stretch;
-      margin-bottom: 24px;
-    }
-
-    .card {
-      background: var(--panel);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      box-shadow: var(--shadow);
-      border-radius: var(--radius);
-    }
-
-    .hero-copy {
-      padding: 34px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 8px 14px;
-      font-size: 13px;
-      color: var(--muted);
-      background: rgba(255,255,255,0.55);
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2.4rem, 5vw, 4.8rem);
-      line-height: 0.95;
-      letter-spacing: -0.05em;
-      max-width: 12ch;
-    }
-
-    .lead {
-      margin: 18px 0 0;
-      max-width: 62ch;
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: var(--muted);
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 24px;
-    }
-
-    .stat {
-      border-radius: 22px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.52);
-      padding: 16px;
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 1.4rem;
-      margin-bottom: 4px;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.45;
-    }
-
-    .hero-side {
-      padding: 26px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      justify-content: space-between;
-      background:
-        linear-gradient(180deg, rgba(31,26,23,0.92), rgba(31,26,23,0.78)),
-        url("https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80") center/cover;
-      color: #fff;
-      overflow: hidden;
-    }
-
-    .hero-side h2 {
-      margin: 0;
-      font-size: 1.35rem;
-      letter-spacing: -0.03em;
-    }
-
-    .hero-side p, .hero-side li {
-      color: rgba(255,255,255,0.88);
-      line-height: 1.6;
-      font-size: 0.96rem;
-    }
-
-    .mini-list {
-      margin: 0;
-      padding-left: 18px;
-    }
-
-    .section-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-top: 24px;
-    }
-
-    .panel {
-      padding: 24px;
-    }
-
-    .panel h3 {
-      margin: 0 0 10px;
-      font-size: 1.2rem;
-      letter-spacing: -0.02em;
-    }
-
-    .panel p {
-      margin: 0 0 16px;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-
-    .steps {
-      display: grid;
-      gap: 12px;
-    }
-
-    .step {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      padding: 14px 14px 14px 0;
-      border-top: 1px solid var(--line);
-    }
-
-    .step:first-child { border-top: 0; padding-top: 0; }
-
-    .num {
-      min-width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      display: grid;
-      place-items: center;
-      background: rgba(180, 83, 42, 0.12);
-      color: var(--accent);
-      font-weight: 700;
-      font-size: 0.9rem;
-    }
-
-    .step strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 1rem;
-    }
-
-    .step span {
-      display: block;
-      color: var(--muted);
-      line-height: 1.55;
-      font-size: 0.95rem;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    label {
-      display: grid;
-      gap: 8px;
-      font-size: 0.92rem;
-      color: #372e28;
-      font-weight: 600;
-    }
-
-    input, select {
-      width: 100%;
-      border: 1px solid rgba(31,26,23,0.14);
-      border-radius: 16px;
-      padding: 13px 14px;
-      font: inherit;
-      background: rgba(255,255,255,0.8);
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    input:focus, select:focus {
-      border-color: rgba(180, 83, 42, 0.5);
-      transform: translateY(-1px);
-    }
-
-    .full { grid-column: 1 / -1; }
-
-    button {
-      margin-top: 6px;
-      border: 0;
-      border-radius: 16px;
-      padding: 14px 18px;
-      background: linear-gradient(135deg, var(--accent), #d97706);
-      color: #fff;
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 14px 30px rgba(180, 83, 42, 0.28);
-    }
-
-    button:hover { filter: brightness(1.02); }
-
-    .result {
-      margin-top: 18px;
-      padding: 18px;
-      border-radius: 22px;
-      border: 1px solid rgba(15,118,110,0.18);
-      background: rgba(15, 118, 110, 0.08);
-    }
-
-    .result h4 {
-      margin: 0 0 8px;
-      font-size: 1.05rem;
-    }
-
-    .result p {
-      margin: 0;
-      color: #294b46;
-      line-height: 1.6;
-    }
-
-    .muted-note {
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.5;
-    }
-
-    .brand-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 12px;
-    }
-
-    .brand {
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      background: rgba(255,255,255,0.56);
-      padding: 14px;
-    }
-
-    .brand strong {
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .brand span {
-      color: var(--muted);
-      line-height: 1.45;
-      font-size: 0.9rem;
-    }
-
-    .footer {
-      margin-top: 24px;
-      color: var(--muted);
-      font-size: 0.9rem;
-      text-align: center;
-    }
-
-    @media (max-width: 900px) {
-      .hero, .section-grid, .brand-grid, .stats, .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-copy, .panel, .hero-side {
-        padding: 22px;
-      }
-
-      h1 { max-width: none; }
-    }
-  </style>
+  <title>FitMatch - Sizing Intelligence Layer</title>
+  <meta name="description" content="FitMatch helps translate and compare sizes across brands with a lightweight sizing intelligence layer." />
+  <link rel="stylesheet" href="./css/styles.css" />
+  <script src="./js/data.js" defer></script>
+  <script src="./js/normalization.js" defer></script>
+  <script src="./js/translator.js" defer></script>
+  <script src="./js/app.js" defer></script>
 </head>
 <body>
-  <main class="wrap">
-    <section class="hero">
-      <div class="card hero-copy">
-        <div class="eyebrow">MVP concept · women's T-shirts · brand-specific fit advice</div>
-        <h1>Stop guessing your size.</h1>
+  <main class="app-shell">
+    <section class="hero card">
+      <div class="hero-copy">
+        <div class="eyebrow">Sizing intelligence layer</div>
+        <h1>Understand how sizes differ across brands.</h1>
         <p class="lead">
-          This demo shows how a small, focused MVP can test whether women are willing to
-          enter their body measurements in order to find the right T-shirt size by brand faster.
-          No full-body scan, no complex platform, just one promise: less sizing stress.
+          FitMatch is shifting from a body-measurement quiz to a structured sizing dataset and
+          translation layer. The goal is simple: compare brands, normalize size charts, and make
+          sizing data useful before we ever ask a customer for body input.
         </p>
 
-        <div class="stats">
-          <div class="stat">
-            <strong>1 category</strong>
-            <span>Women's T-shirts, because the scope is small enough for an initial test.</span>
-          </div>
-          <div class="stat">
-            <strong>5 questions</strong>
-            <span>Only the minimum input needed for an initial fit estimate.</span>
-          </div>
-          <div class="stat">
-            <strong>30 sec</strong>
-            <span>From input to sizing advice, so the experience stays light and useful.</span>
-          </div>
+        <div class="hero-actions">
+          <a href="#compare" class="primary-link">Try size translation</a>
+          <a href="#dataset" class="secondary-link">Inspect dataset</a>
         </div>
       </div>
 
-      <aside class="card hero-side">
-        <div>
-          <h2>Why this problem really hurts</h2>
-          <p>
-            A size S is not always a size S. Fit depends on the brand, cut, stretch, and body
-            proportions. That makes people guess, and guessing leads to doubt and returns.
-          </p>
-        </div>
-        <div>
-          <h2>What MVP 1 tests</h2>
-          <ul class="mini-list">
-            <li>Do people want to enter their measurements?</li>
-            <li>Do they feel helped by brand-specific advice?</li>
-            <li>Do they trust a simple fit estimate enough to buy?</li>
-          </ul>
-        </div>
+      <aside class="hero-panel">
+        <h2>Product direction</h2>
+        <ul>
+          <li>Brand fit comparison tool</li>
+          <li>Size translation engine</li>
+          <li>Normalization layer for public size charts</li>
+          <li>Future feedback loop from users</li>
+        </ul>
+        <p class="note">
+          Body-based recommendation can come later, but it should sit on top of this layer, not
+          replace it.
+        </p>
       </aside>
     </section>
 
-    <section class="section-grid">
-      <div class="card panel">
-        <h3>The MVP in 4 steps</h3>
-        <p>Keep it deliberately small. You want evidence, not a perfect system.</p>
-        <div class="steps">
-          <div class="step">
-            <div class="num">1</div>
-            <div>
-              <strong>Start with one product</strong>
-              <span>Choose women's T-shirts as the first category. It is simple and recognizable for users.</span>
-            </div>
+    <section class="grid two-up">
+      <article class="card section-card">
+        <h2>What changed from the previous MVP</h2>
+        <p>
+          The old version centered on a small questionnaire and body measurements for women's
+          T-shirts. This iteration moves the core object from the person to the sizing system.
+        </p>
+        <div class="bullet-list">
+          <div><strong>Before:</strong> "What size fits this person?"</div>
+          <div><strong>Now:</strong> "How do sizes differ across brands and products?"</div>
+          <div><strong>Later:</strong> "What can user feedback teach the dataset?"</div>
+        </div>
+      </article>
+
+      <article class="card section-card">
+        <h2>Architecture</h2>
+        <div class="architecture">
+          <div>
+            <span>UI</span>
+            <p>Brand comparison, translation results, and simple dataset views.</p>
           </div>
-          <div class="step">
-            <div class="num">2</div>
-            <div>
-              <strong>Ask only core measurements</strong>
-              <span>Height, bust, shoulders, preferred fit, and current size at known brands are enough for a first test.</span>
-            </div>
+          <div>
+            <span>Sizing dataset</span>
+            <p>Normalized brand charts, product attributes, and fit profiles.</p>
           </div>
-          <div class="step">
-            <div class="num">3</div>
-            <div>
-              <strong>Give brand advice</strong>
-              <span>Show a simple recommendation per brand, such as runs small, true to size, or runs large.</span>
-            </div>
+          <div>
+            <span>Normalization logic</span>
+            <p>Converts brand-specific sizes into a shared FitMatch format.</p>
           </div>
-          <div class="step">
-            <div class="num">4</div>
-            <div>
-              <strong>Measure confidence</strong>
-              <span>Ask afterward whether the user would follow the advice. That is your first signal for product-market fit.</span>
-            </div>
+          <div>
+            <span>Translation engine</span>
+            <p>Maps one brand size into the closest size in another brand.</p>
+          </div>
+          <div>
+            <span>Feedback layer</span>
+            <p>Collects fit outcomes later to improve the dataset.</p>
           </div>
         </div>
+      </article>
+    </section>
+
+    <section id="dataset" class="card section-card">
+      <div class="section-heading">
+        <div>
+          <h2>Sample sizing dataset</h2>
+          <p>Compact by design. This is enough to validate the new direction without overbuilding.</p>
+        </div>
+        <span class="badge">Normalized format</span>
       </div>
+      <div id="datasetGrid" class="brand-grid"></div>
+    </section>
 
-      <div class="card panel">
-        <h3>Simple fit-check demo</h3>
-        <p>This is fictional demo logic with sample data, built to make the experience tangible.</p>
-
-        <form id="fitForm">
-          <div class="form-grid">
-            <label>
-              Brand
-              <select id="brand">
-                <option value="zara">Zara</option>
-                <option value="mango">Mango</option>
-                <option value="basic">Basic T-shirt demo</option>
-              </select>
-            </label>
-
-            <label>
-              Preferred fit
-              <select id="fitPreference">
-                <option value="slim">Tight</option>
-                <option value="regular" selected>Regular</option>
-                <option value="oversized">Oversized</option>
-              </select>
-            </label>
-
-            <label>
-              Bust circumference (cm)
-              <input id="chest" type="number" min="60" max="140" value="88" />
-            </label>
-
-            <label>
-              Shoulder width (cm)
-              <input id="shoulders" type="number" min="30" max="60" value="38" />
-            </label>
-
-            <label>
-              Torso length (cm)
-              <input id="torso" type="number" min="35" max="80" value="58" />
-            </label>
-
-            <label>
-              Usual size
-              <select id="usualSize">
-                <option value="XS">XS</option>
-                <option value="S" selected>S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-              </select>
-            </label>
-
-            <label class="full">
-              What does this MVP do?
-              <input value="A fast size estimate for women's T-shirts" disabled />
-            </label>
+    <section id="compare" class="grid two-up">
+      <article class="card section-card">
+        <div class="section-heading">
+          <div>
+            <h2>Brand fit comparison</h2>
+            <p>Compare how the same nominal size behaves across brands.</p>
           </div>
+        </div>
 
-          <button type="submit">Calculate my demo recommendation</button>
+        <form id="compareForm" class="form-grid">
+          <label>
+            Source brand
+            <select id="sourceBrand"></select>
+          </label>
+
+          <label>
+            Source size
+            <select id="sourceSize"></select>
+          </label>
+
+          <label>
+            Target brand
+            <select id="targetBrand"></select>
+          </label>
+
+          <label>
+            Product type
+            <select id="productType">
+              <option value="tshirt">Women's T-shirt</option>
+            </select>
+          </label>
+
+          <button type="submit">Translate size</button>
         </form>
 
-        <div class="result" id="result">
-          <h4>Recommendation appears here</h4>
-          <p>Fill in the demo and press the button to see how the advice can work.</p>
+        <div id="translationResult" class="result-box">
+          <h3>Translation result</h3>
+          <p>Select two brands to see how the same size translates.</p>
         </div>
-        <div class="muted-note">
-          Note: this is an MVP demo. In a real version, you would replace the sample rules with
-          real brand and product data.
-        </div>
-      </div>
-    </section>
+      </article>
 
-    <section class="card panel" style="margin-top:24px;">
-      <h3>Brand data you will eventually need</h3>
-      <p>
-        The real product becomes powerful once you can map relevant garment measurements to body
-        measurements per brand and per item. For the first version, you do not need all of that data yet.
-      </p>
-      <div class="brand-grid">
-        <div class="brand">
-          <strong>Product size</strong>
-          <span>Bust width, shoulder width, length, fit, and stretch of the item.</span>
-        </div>
-        <div class="brand">
-          <strong>Body data</strong>
-          <span>The measurements the customer enters themselves or later captures automatically.</span>
-        </div>
-        <div class="brand">
-          <strong>Matching logic</strong>
-          <span>A simple rules engine that translates into advice: small, regular, or roomy.</span>
-        </div>
-      </div>
-    </section>
-
-    <p class="footer">FitMatch MVP demo · built as a starting point for discussion, testing, and iteration.</p>
-  </main>
-
-  <script>
-    const brandProfiles = {
-      zara: { chest: 90, shoulders: 38, torso: 58, note: "In this demo, Zara runs slightly slimmer and shorter." },
-      mango: { chest: 94, shoulders: 40, torso: 60, note: "In this demo, Mango runs slightly roomier and longer." },
-      basic: { chest: 92, shoulders: 39, torso: 59, note: "The basic T-shirt demo has a neutral, regular fit." }
-    };
-
-    const sizeOrder = ["XS", "S", "M", "L", "XL"];
-    const resultEl = document.getElementById("result");
-
-    function getSizeFromScore(score) {
-      if (score <= -12) return "XS";
-      if (score <= -4) return "S";
-      if (score <= 4) return "M";
-      if (score <= 12) return "L";
-      return "XL";
-    }
-
-    function fitAdjustment(pref) {
-      if (pref === "slim") return -3;
-      if (pref === "oversized") return 4;
-      return 0;
-    }
-
-    function confidenceLabel(score) {
-      const abs = Math.abs(score);
-      if (abs <= 4) return "high";
-      if (abs <= 9) return "medium";
-      return "low";
-    }
-
-    document.getElementById("fitForm").addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      const brand = document.getElementById("brand").value;
-      const pref = document.getElementById("fitPreference").value;
-      const chest = Number(document.getElementById("chest").value);
-      const shoulders = Number(document.getElementById("shoulders").value);
-      const torso = Number(document.getElementById("torso").value);
-      const usualSize = document.getElementById("usualSize").value;
-
-      const profile = brandProfiles[brand];
-      const score =
-        (chest - profile.chest) * 0.6 +
-        (shoulders - profile.shoulders) * 0.8 +
-        (torso - profile.torso) * 0.4 +
-        fitAdjustment(pref);
-
-      const recommendation = getSizeFromScore(score);
-      const confidence = confidenceLabel(score);
-      const currentIndex = sizeOrder.indexOf(usualSize);
-      const recoIndex = sizeOrder.indexOf(recommendation);
-      const delta = recoIndex - currentIndex;
-
-      let direction = "matches your usual size";
-      if (delta > 0) direction = `probably runs a bit smaller than your usual size, so try ${recommendation}`;
-      if (delta < 0) direction = `probably runs a bit roomier than your usual size, so ${recommendation} may work`;
-
-      resultEl.innerHTML = `
-        <h4>Your demo recommendation: ${recommendation}</h4>
+      <article class="card section-card">
+        <h2>Feedback layer preview</h2>
         <p>
-          For ${brand === "zara" ? "Zara" : brand === "mango" ? "Mango" : "the basic demo"}
-          it ${direction}. The estimated confidence is <strong>${confidence}</strong>.
+          This is intentionally lightweight for now. The app can later capture fit outcomes such
+          as "too small", "good fit", or "too large" to improve the sizing logic.
         </p>
-        <p style="margin-top:10px;">
-          Why: your profile is ${score > 0 ? "above" : "below"} this brand's reference point in the demo,
-          and you prefer a ${pref === "slim" ? "tighter" : pref === "oversized" ? "looser" : "neutral"} fit.
-        </p>
-      `;
-    });
-  </script>
+        <div class="feedback-box">
+          <label>
+            Fit outcome
+            <select id="feedbackOutcome">
+              <option value="too_small">Too small</option>
+              <option value="good_fit" selected>Good fit</option>
+              <option value="too_large">Too large</option>
+            </select>
+          </label>
+          <label>
+            Notes
+            <textarea id="feedbackNotes" rows="5" placeholder="Optional context about the fit, fabric, or cut."></textarea>
+          </label>
+          <button type="button" id="saveFeedback">Save local feedback</button>
+        </div>
+        <div id="feedbackStatus" class="micro-status">No feedback saved yet.</div>
+      </article>
+    </section>
+  </main>
 </body>
 </html>
