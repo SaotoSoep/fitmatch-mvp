@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FitMatch Mockup - Product Page</title>
   <meta name="description" content="A realistic product page mockup showing where the FitMatch widget sits inside a fashion shopping flow." />
-  <link rel="stylesheet" href="./css/styles.css?v=20260419-4" />
+  <link rel="stylesheet" href="./css/styles.css?v=20260419-5" />
   <script>
     window.FitMatchWidgetConfig = {
       sourceBrand: "zara",
@@ -13,10 +13,10 @@
       sourceSize: "S"
     };
   </script>
-  <script src="./js/data.js?v=20260419-4" defer></script>
-  <script src="./js/normalization.js?v=20260419-4" defer></script>
-  <script src="./js/translator.js?v=20260419-4" defer></script>
-  <script src="./js/app.js?v=20260419-4" defer></script>
+  <script src="./js/data.js?v=20260419-5" defer></script>
+  <script src="./js/normalization.js?v=20260419-5" defer></script>
+  <script src="./js/translator.js?v=20260419-5" defer></script>
+  <script src="./js/app.js?v=20260419-5" defer></script>
   <style>
     .mockup-shell {
       width: min(1380px, calc(100% - 32px));
@@ -61,15 +61,16 @@
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
+      gap: 0;
+      background: #fff;
     }
 
     .media {
-      border-radius: 22px;
       overflow: hidden;
       position: relative;
       min-height: 320px;
       background: #eceae6;
+      border: 4px solid #fff;
     }
 
     .media.large {
@@ -97,7 +98,6 @@
       left: 12px;
       bottom: 12px;
       padding: 8px 10px;
-      border-radius: 999px;
       background: rgba(255, 255, 255, 0.86);
       font-size: 0.76rem;
       font-weight: 800;
@@ -115,7 +115,6 @@
       align-items: center;
       gap: 8px;
       padding: 7px 12px;
-      border-radius: 999px;
       border: 1px solid rgba(36, 28, 22, 0.12);
       background: rgba(255, 255, 255, 0.6);
       color: var(--accent-2);
@@ -155,7 +154,6 @@
 
     .badge-sale {
       padding: 5px 8px;
-      border-radius: 4px;
       background: #e60000;
       color: #fff;
       font-size: 0.8rem;
@@ -173,7 +171,6 @@
     .product-info-block {
       margin: 12px 0 18px;
       padding: 16px;
-      border-radius: 22px;
       border: 1px solid rgba(36, 28, 22, 0.12);
       background: rgba(255, 255, 255, 0.72);
     }
@@ -204,7 +201,6 @@
     .swatch {
       width: 18px;
       height: 18px;
-      border-radius: 4px;
       border: 1px solid rgba(0, 0, 0, 0.12);
     }
 
@@ -223,7 +219,6 @@
 
     .size-pill {
       padding: 10px 8px;
-      border-radius: 16px;
       border: 1px solid rgba(36, 28, 22, 0.12);
       background: rgba(255, 255, 255, 0.78);
       text-align: center;
@@ -232,6 +227,11 @@
       cursor: pointer;
       user-select: none;
       transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+      color: #1f1a17;
+      min-height: 52px;
+      display: grid;
+      place-items: center;
+      font-size: 1rem;
     }
 
     .size-pill.active {
@@ -261,7 +261,6 @@
       width: 100%;
       text-align: center;
       padding: 15px 18px;
-      border-radius: 18px;
       background: #e30613;
       color: #fff;
       font-weight: 900;
@@ -284,7 +283,6 @@
 
     .model-note {
       padding: 12px 14px;
-      border-radius: 18px;
       background: rgba(15, 118, 110, 0.08);
       border: 1px solid rgba(15, 118, 110, 0.14);
       color: #2f4d49;
@@ -294,7 +292,6 @@
 
     .fit-widget-inline {
       padding: 16px;
-      border-radius: 22px;
       border: 1px solid rgba(36, 28, 22, 0.12);
       background: rgba(255, 255, 255, 0.72);
       margin-bottom: 18px;
@@ -316,7 +313,6 @@
 
     .fit-widget-inline .widget-shell {
       padding: 14px;
-      border-radius: 22px;
     }
 
     .fit-widget-inline .widget-shell-top {
@@ -356,12 +352,10 @@
       align-items: center;
       font-size: 0.92rem;
       padding: 6px 8px;
-      border-radius: 12px;
     }
 
     .size-row .track {
       height: 10px;
-      border-radius: 999px;
       background: rgba(36, 28, 22, 0.1);
       overflow: hidden;
     }
@@ -421,7 +415,7 @@
   <main class="mockup-shell">
     <div class="mockup-topbar">
       <div>FitMatch product page mockup</div>
-      <a href="./index.html?v=20260419-4#widget">Back to widget page</a>
+      <a href="./index.html?v=20260419-5#widget">Back to widget page</a>
     </div>
 
     <section class="pdp-layout">
@@ -460,7 +454,7 @@
           <div>The model wears size S and is 179 cm tall.</div>
         </div>
 
-        <div class="product-info-block">
+      <div class="product-info-block">
           <h3>Product information</h3>
           <div class="color-row">
             <div class="swatches">
@@ -517,17 +511,33 @@
                 <form id="compareForm" class="form-grid">
                   <label>
                     I wear this size at
-                    <select id="sourceBrand"></select>
+                    <select id="sourceBrand">
+                      <option value="zara">Zara</option>
+                      <option value="mango">Mango</option>
+                      <option value="uniqlo">Uniqlo</option>
+                      <option value="cos">COS</option>
+                    </select>
                   </label>
 
                   <label>
                     My usual size
-                    <select id="sourceSize"></select>
+                    <select id="sourceSize">
+                      <option value="XS">XS</option>
+                      <option value="S" selected>S</option>
+                      <option value="M">M</option>
+                      <option value="L">L</option>
+                      <option value="XL">XL</option>
+                    </select>
                   </label>
 
                   <label>
                     I want to buy from
-                    <select id="targetBrand"></select>
+                    <select id="targetBrand">
+                      <option value="mango">Mango</option>
+                      <option value="zara">Zara</option>
+                      <option value="uniqlo">Uniqlo</option>
+                      <option value="cos">COS</option>
+                    </select>
                   </label>
 
                   <label>
@@ -626,7 +636,7 @@
     }
 
     .gallery-grid {
-      gap: 4px !important;
+      gap: 0 !important;
     }
   </style>
 </body>
